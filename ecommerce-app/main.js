@@ -14,7 +14,7 @@ function createWindow() {
         }
     });
 
-    mainWindow.loadFile('views/signup.html'); // This points to the welcome page
+    mainWindow.loadFile('views/signup.html'); // Initial page
 }
 
 app.on('ready', createWindow);
@@ -47,5 +47,15 @@ ipcMain.handle('login', async (event, username, password) => {
         return response.data;
     } catch (error) {
         return { error: error.response.data.error };
+    }
+});
+
+// IPC handler to fetch products
+ipcMain.handle('fetch-products', async () => {
+    try {
+        const response = await axios.get('http://localhost:3001/products');
+        return response.data;
+    } catch (error) {
+        return { error: error.message };
     }
 });

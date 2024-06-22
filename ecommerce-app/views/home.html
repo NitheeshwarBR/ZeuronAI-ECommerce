@@ -6,21 +6,79 @@
     <title>Home</title>
     <link rel="stylesheet" href="styles/styles.css">
 </head>
-<body>
+<body class="ecommerce-body">
     <header>
-        <div class="user-management">
-            <button id="logout-btn">Logout</button>
+        <div class="header-left">
+            <div class="user-icon" onclick="toggleUserMenu()">U</div>
+            <div id="user-menu" class="user-menu">
+                <a href="#">My Cart</a>
+                <a href="#">Change Email</a>
+                <a href="#">Change Password</a>
+                <a href="#">Logout</a>
+            </div>
         </div>
-        <div class="search-bar">
-            <input type="text" id="search-input" placeholder="Search products...">
-            <button id="search-btn">Search</button>
+        <div class="header-center">
+            <input type="text" id="search-bar" placeholder="Search for products...">
+        </div>
+        <div class="header-right">
+            <button class="cart-button">Cart</button>
         </div>
     </header>
 
-    <main>
-        <div id="product-list"></div>
-    </main>
+    <div class="content" id="product-list"></div>
 
-    <script src="js/products.js"></script>
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modal-image" src="" alt="Product Image">
+            <h2 id="modal-title"></h2>
+            <p id="modal-description"></p>
+            <p id="modal-price"></p>
+            <div id="modal-reviews"></div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 E-Commerce Application</p>
+    </footer>
+
+    <script>
+        async function loadProducts() {
+            const result = await window.api.fetchProducts();
+            if (result.error) {
+                alert(`Error fetching products: ${result.error}`);
+            } else {
+                const productList = document.getElementById('product-list');
+                result.products.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.innerHTML = `
+                        <img src="${product.image}" alt="${product.title}">
+                        <h3>${product.title}</h3>
+                        <p>${product.description}</p>
+                        <button onclick="addToCart(${product.id})">Add to Cart</button>
+                        <button onclick="showProductDetails(${product.id})">View Details</button>
+                    `;
+                    productList.appendChild(productCard);
+                });
+            }
+        }
+
+        function toggleUserMenu() {
+            const userMenu = document.getElementById('user-menu');
+            userMenu.style.display = userMenu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = 'login.html';
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').style.display = 'none';
+        }
+
+        // Load products on page load
+        window.onload = loadProducts;
+    </script>
 </body>
 </html>
