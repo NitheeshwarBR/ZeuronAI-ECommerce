@@ -11,7 +11,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         // Store the token and redirect to another page if needed
         localStorage.setItem('token', result.token);
         setTimeout(() => {
-            window.location.href = 'some_authenticated_page.html'; // Change to the page you want to navigate after login
+            window.location.href = 'home.html'; // Change to the page you want to navigate after login
         }, 2000);
     }
 });

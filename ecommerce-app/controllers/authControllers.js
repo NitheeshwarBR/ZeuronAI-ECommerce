@@ -37,6 +37,7 @@ function login(req, res) {
                 'Nitheesh@1234567890ZeuronAIEcommerceApplicationSystem',
                 { expiresIn: '2h' }
             );
+            res.cookie('jwt_token', token, { httpOnly: true, maxAge: 2 * 60 * 60 * 1000 }); // maxAge in milliseconds
             res.json({ token, message: 'Login successful' });
         });
     });
