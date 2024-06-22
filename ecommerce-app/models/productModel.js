@@ -1,5 +1,6 @@
 const { promises } = require('original-fs');
 const db = require('../database/db');
+const { resolve } = require('path');
 
 function createProduct({ image, title, description, price, category }) {
     return new Promise((resolve, reject) => {
@@ -20,6 +21,7 @@ function getAllProducts() {
         db.all(query, [], (err, rows) => {
             if (err) {
                 reject(err);
+                return ;
             } else {
                 resolve(rows);
             }
@@ -27,7 +29,20 @@ function getAllProducts() {
     });
 }
 
+function searchProducts(query) {
+    return new Promise((resolve, reject) => {
+        const searchQuery = `SELECT * FROM Products WHERE title LIKE ? OR description LIKE ?`;
+        db.all(searchQuery, [`%${query}%`, `%${query}%`], (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(rows);
+        });
+    });
+}
 module.exports = {
     createProduct,
-    getAllProducts
+    getAllProducts,
+    searchProducts
 };

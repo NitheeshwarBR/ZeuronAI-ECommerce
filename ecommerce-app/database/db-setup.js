@@ -35,6 +35,36 @@ db.serialize(() => {
             console.log('Products table created successfully.');
         }
     });
+    db.run(`CREATE TABLE IF NOT EXISTS Cart (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        product_id INTEGER NOT NULL,
+        quantity INTEGER NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES Users(id),
+        FOREIGN KEY (product_id) REFERENCES Products(id)
+        )`,err=>{
+            if (err) {
+                console.error('Error creating Products table:', err.message);
+            } else {
+                console.log('Carts table created successfully.');
+            }
+        });
+    db.run(`CREATE TABLE IF NOT EXISTS Reviews(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        product_id INTEGER NOT NULL,
+        rating INTEGER NOT NULL,
+        comment TEXT,
+        date_of_review TEXT DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES Users(id),
+        FOREIGN KEY (product_id) REFERENCES Products(id)
+        )`,err=>{
+            if (err) {
+                console.error('Error creating Products table:', err.message);
+            } else {
+                console.log('Reviews table created successfully.');
+            }
+        });
     
 });
 
