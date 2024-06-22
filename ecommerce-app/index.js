@@ -21,9 +21,9 @@ function authenticateToken(req, res, next) {
 
 app.use('/auth', authRoutes);
 
-const PORT = 3000;
+const PORT = 3001;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on the port ${PORT}`);
 });
 
 module.exports = app;
