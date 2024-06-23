@@ -38,7 +38,7 @@ function login(req, res) {
                 { expiresIn: '2h' }
             );
             res.cookie('jwt_token', token, { httpOnly: true, maxAge: 2 * 60 * 60 * 1000 }); // maxAge in milliseconds
-            res.json({ token, message: 'Login successful' });
+            res.json({ id: user.id,token, message: 'Login successful' });
         });
     });
 }

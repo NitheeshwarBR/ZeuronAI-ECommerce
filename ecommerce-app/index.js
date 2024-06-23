@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoute');
+const cartRoutes = require('./routes/cartRoutes');
+
+
 const cors = require('cors'); 
 const app = express();
 
@@ -17,15 +20,16 @@ function authenticateToken(req, res, next) {
     jwt.verify(token, 'Nitheesh@1234567890ZeuronAIEcommerceApplicationSystem', (err, user) => {
         if (err) {
             console.error('Token verification error:', err.message);
-            return res.sendStatus(403); // Token invalid or expired
+            return res.sendStatus(403);
         }
 
-        req.user = user; // Attach user object to request
+        req.user = user;
         next();
     });
 }
 app.use('/auth', authRoutes);
 app.use('/products',productRoutes);
+app.use('/cart',authenticateToken,cartRoutes);
 
 const PORT = 3001;
 app.listen(PORT, () => {
