@@ -1,6 +1,4 @@
-const { promises } = require('original-fs');
 const db = require('../database/db');
-const { resolve } = require('path');
 
 function createProduct({ image, title, description, price, category }) {
     return new Promise((resolve, reject) => {
@@ -21,7 +19,7 @@ function getAllProducts() {
         db.all(query, [], (err, rows) => {
             if (err) {
                 reject(err);
-                return ;
+                return;
             } else {
                 resolve(rows);
             }
@@ -41,8 +39,23 @@ function searchProducts(query) {
         });
     });
 }
+
+function getProductById(productId) {
+    return new Promise((resolve, reject) => {
+        const query = `SELECT * FROM Products WHERE id = ?`;
+        db.get(query, [productId], (err, row) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(row);
+            }
+        });
+    });
+}
+
 module.exports = {
     createProduct,
     getAllProducts,
-    searchProducts
+    searchProducts,
+    getProductById
 };

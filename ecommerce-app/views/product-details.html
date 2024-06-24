@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body class="ecommerce-body">
+    <header>
+        <div class="header-left">
+            <div class="user-icon" onclick="toggleUserMenu()">U</div>
+            <div id="user-menu" class="user-menu">
+                <a href="cart.html">My Cart</a>
+                <a href="#">Change Email</a>
+                <a href="#">Change Password</a>
+                <a href="#" onclick="logout()">Logout</a>
+            </div>
+        </div>
+        <div class="header-center">
+            <input type="text" id="search-bar" placeholder="Search for products...">
+        </div>
+        <div class="header-right">
+            <button class="cart-button" onclick="location.href='cart.html'">Cart</button>
+        </div>
+    </header>
+
+    <div class="content" id="product-details"></div>
+    <div id="reviews"></div>
+    <form id="review-form">
+        <input type="number" id="rating" placeholder="Rating" min="1" max="5" required>
+        <textarea id="comment" placeholder="Comment" required></textarea>
+        <button type="submit">Submit Review</button>
+    </form>
+
+    <footer>
+        <p>&copy; 2024 E-Commerce Application</p>
+    </footer>
+
+    <script src="js/product-details.js"></script>
+</body>
+</html>

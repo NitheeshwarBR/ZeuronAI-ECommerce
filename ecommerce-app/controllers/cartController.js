@@ -1,17 +1,15 @@
 const cartModel = require('../models/cartModel');
 
-async function addToCart(req,res){
-    const {userId , productId , quantity} = req.body;
+async function addToCart(req, res) {
+    const { userId, productId, quantity } = req.body;
 
-    try{
-        const cartItemId = await cartModel.addToCart(userId,productId,quantity);
-        return res.status(201).json({cartItemId,message:"Products added to cart successfully"});
-    }
-    catch(err){
-        return res.status(500).json({error:"Error adding products to cart"});
+    try {
+        const cartItemId = await cartModel.addToCart(userId, productId, quantity);
+        return res.status(201).json({ cartItemId, message: "Product added to cart successfully" });
+    } catch (err) {
+        return res.status(500).json({ error: "Error adding product to cart" });
     }
 }
-
 
 async function getCartItems(req, res) {
     const userId = req.user.id;
@@ -23,20 +21,19 @@ async function getCartItems(req, res) {
     }
 }
 
-async function removeCartItems(req,res){
-    const {cartItemId} = req.params;
+async function removeCartItems(req, res) {
+    const { cartItemId } = req.params;
 
-    try{
+    try {
         await cartModel.removeCartItems(cartItemId);
-        return res.status(200).json({message:"Products removed from cart successfully"});
-    }
-    catch(err){
-        return res.status(500).json({error:"Error Removing the products from cart"});
+        return res.status(200).json({ message: "Product removed from cart successfully" });
+    } catch (err) {
+        return res.status(500).json({ error: "Error removing product from cart" });
     }
 }
 
-module.exports={
+module.exports = {
     addToCart,
     getCartItems,
     removeCartItems
-}
+};

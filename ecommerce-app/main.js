@@ -1,4 +1,3 @@
-// main.js
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const axios = require('axios');
@@ -31,13 +30,15 @@ app.on('activate', () => {
     }
 });
 
-// IPC handlers for signup and login
+// IPC handlers for signup, login, fetching products, adding to cart, fetching cart items,
+// removing cart items, fetching product details, adding reviews, fetching reviews
+
 ipcMain.handle('signup', async (event, username, password) => {
     try {
         const response = await axios.post('http://localhost:3001/auth/signup', { username, password });
         return response.data;
     } catch (error) {
-        return { error: error.response.data.error };
+        return { error: error.response?.data?.error || 'An error occurred during signup' };
     }
 });
 
@@ -46,16 +47,69 @@ ipcMain.handle('login', async (event, username, password) => {
         const response = await axios.post('http://localhost:3001/auth/login', { username, password });
         return response.data;
     } catch (error) {
-        return { error: error.response.data.error };
+        return { error: error.response?.data?.error || 'An error occurred during login' };
     }
 });
 
-// IPC handler to fetch products
 ipcMain.handle('fetch-products', async () => {
     try {
         const response = await axios.get('http://localhost:3001/products');
         return response.data;
     } catch (error) {
-        return { error: error.message };
+        return { error: error.message || 'An error occurred while fetching products' };
+    }
+});
+
+ipcMain.handle('add-to-cart', async (event, productId, quantity) => {
+    try {
+        const response = await axios.post('http://localhost:3001/cart', { productId, quantity });
+        return response.data;
+    } catch (error) {
+        return { error: error.message || 'An error occurred while adding to cart' };
+    }
+});
+
+ipcMain.handle('fetch-cart-items', async () => {
+    try {
+        const response = await axios.get('http://localhost:3001/cart');
+        return response.data;
+    } catch (error) {
+        return { error: error.message || 'An error occurred while fetching cart items' };
+    }
+});
+
+ipcMain.handle('remove-cart-item', async (event, cartItemId) => {
+    try {
+        const response = await axios.delete(`http://localhost:3001/cart/${cartItemId}`);
+        return response.data;
+    } catch (error) {
+        return { error: error.message || 'An error occurred while removing cart item' };
+    }
+});
+
+ipcMain.handle('fetch-product-details', async (event, productId) => {
+    try {
+        const response = await axios.get(`http://localhost:3001/products/${productId}`);
+        return response.data;
+    } catch (error) {
+        return { error: error.message || 'An error occurred while fetching product details' };
+    }
+});
+
+ipcMain.handle('add-review', async (event, productId, rating, comment) => {
+    try {
+        const response = await axios.post('http://localhost:3001/reviews', { productId, rating, comment });
+        return response.data;
+    } catch (error) {
+        return { error: error.message || 'An error occurred while adding the review' };
+    }
+});
+
+ipcMain.handle('fetch-reviews', async (event, productId) => {
+    try {
+        const response = await axios.get(`http://localhost:3001/reviews/${productId}`);
+        return response.data;
+    } catch (error) {
+        return { error: error.message || 'An error occurred while fetching reviews' };
     }
 });
