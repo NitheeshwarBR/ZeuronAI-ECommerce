@@ -12,7 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: 'http://localhost:3000', // Adjust the origin as needed
+    origin: 'http://localhost:3001',
     credentials: true
 }));
 
@@ -32,7 +32,7 @@ function authenticateToken(req, res, next) {
 
 app.use('/auth', authRoutes);
 app.use('/products', productRoutes);
-app.use('/cart', authenticateToken, cartRoutes); // Apply authenticateToken middleware to /cart routes
+app.use('/cart', authenticateToken, cartRoutes);
 app.use('/reviews', reviewRoutes);
 
 const PORT = 3001;
