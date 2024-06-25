@@ -4,7 +4,7 @@ const app = require('../app');
 describe('POST /auth/signup', () => {
   test('It should respond with the newly created user', async () => {
     const newUser = {
-      username: 'testuser2',
+      username: 'testuser6',
       password: 'password123'
     };
 

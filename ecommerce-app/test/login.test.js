@@ -1,3 +1,4 @@
+
 const request = require('supertest');
 const app = require('../app');
 const agent = request.agent(app);  
@@ -6,7 +7,7 @@ describe('POST /auth/login', () => {
   test('It should log in an existing user and return a token', async () => {
     const credentials = {
       username: 'testuser2',
-      password: 'password123'
+      password: 'newpassword12345'
     };
 
     const response = await agent

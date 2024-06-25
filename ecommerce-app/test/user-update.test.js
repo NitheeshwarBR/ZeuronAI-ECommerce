@@ -1,4 +1,4 @@
-// tests/user.test.js
+
 const request = require('supertest');
 const app = require('../app');
 const agent = request.agent(app);
@@ -10,7 +10,7 @@ describe('PUT /auth/update-password', () => {
       .post('/auth/login')
       .send({
         username: 'testuser2',   
-        password: 'password123' 
+        password: 'newpassword12345' 
       })
       .expect(200);
   });
@@ -19,7 +19,7 @@ describe('PUT /auth/update-password', () => {
     const updateResponse = await agent
       .put('/auth/update-password')
       .send({
-        newPassword: 'newpassword123' 
+        newPassword: 'newpassword123456' 
       });
 
     expect(updateResponse.statusCode).toBe(200);
@@ -32,7 +32,7 @@ describe('PUT /auth/update-password', () => {
     const updateResponse = await newAgent
       .put('/auth/update-password')
       .send({
-        newPassword: 'newpassword123'  
+        newPassword: 'newpassword1234'  
       });
 
     expect(updateResponse.statusCode).toBe(401);  

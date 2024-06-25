@@ -49,6 +49,8 @@ npm test
 ```bash
 npm test -- tests/<test_file>.js
 ```
+##### Test Results
+![Test Results](image.png)
 ---
 ## API Endpoints
 

@@ -1,19 +1,19 @@
-// tests/product.test.js
+
 const request = require('supertest');
 const app = require('../app');
-const agent = request.agent(app); // Using agent to maintain session state
+const agent = request.agent(app);
 
 describe('Product Management API', () => {
 
   beforeAll(async () => {
-    // Login to authenticate and store session cookies
+    
     await agent
       .post('/auth/login')
       .send({
-        username: 'testuser2',   // Ensure this admin user exists in your test database
-        password: 'newpassword123' // Correct password for the admin user
+        username: 'testuser2',   
+        password: 'newpassword123456'
       })
-      .expect(200); // Expect successful login
+      .expect(200); 
   });
 
   test('It should add a product and return the product ID', async () => {
@@ -56,7 +56,7 @@ describe('Product Management API', () => {
   });
 
   test('It should return a single product by ID', async () => {
-    const productId = 9;  // Assuming this product ID exists
+    const productId = 9;  
     const response = await agent
       .get(`/products/${productId}`)
       .expect(200);
@@ -67,7 +67,7 @@ describe('Product Management API', () => {
   });
 
   test('It should return 404 if the product does not exist', async () => {
-    const productId = 9999;  // Assuming this product ID does not exist
+    const productId = 9999; 
     const response = await agent
       .get(`/products/${productId}`)
       .expect(404);

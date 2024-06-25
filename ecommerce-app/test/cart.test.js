@@ -1,25 +1,24 @@
-// tests/cart.test.js
 const request = require('supertest');
 const app = require('../app');
-const agent = request.agent(app);  // Using agent to maintain session state
+const agent = request.agent(app); 
 
 describe('Cart Management API', () => {
 
   beforeAll(async () => {
-    // Log in to authenticate and store session cookies
+  
     await agent
       .post('/auth/login')
       .send({
-        username: 'testuser2',   // Ensure this user exists in your test database
-        password: 'newpassword123' // Correct password for the user
+        username: 'testuser2',   
+        password: 'newpassword123456' 
       })
       .expect(200);
   });
 
   test('It should add a product to the cart and return the cart item ID', async () => {
     const cartItem = {
-      userId: 7,  // Assume this is the logged-in user's ID
-      productId: 9,  // Assume this product ID exists
+      userId: 7,  
+      productId: 9, 
       quantity: 2
     };
 
@@ -43,7 +42,7 @@ describe('Cart Management API', () => {
   });
 
   test('It should remove a product from the cart', async () => {
-    const cartItemId = 1;  // Assume this cart item ID exists in the user's cart
+    const cartItemId = 1; 
 
     const response = await agent
       .delete(`/cart/${cartItemId}`)
