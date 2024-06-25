@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
+  "type": "module", 
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --timeout 10000 --require esm"
   },
   "keywords": [],
   "author": "",
@@ -14,13 +15,20 @@
     "axios": "^1.7.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
+    "chai-http": "^5.0.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "electron": "^31.0.2",
+    "esm": "^3.2.25",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "original-fs": "^1.2.0",
     "path": "^0.12.7",
     "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "chai": "^5.1.1",
+    "mocha": "^10.5.1",
+    "supertest": "^7.0.0"
   }
 }
