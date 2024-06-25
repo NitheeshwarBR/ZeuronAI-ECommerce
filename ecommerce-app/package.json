@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
-  "type": "module", 
   "scripts": {
     "start": "electron .",
-    "test": "mocha --timeout 10000 --require esm"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -28,7 +27,9 @@
   },
   "devDependencies": {
     "chai": "^5.1.1",
+    "jest": "^29.7.0",
     "mocha": "^10.5.1",
+    "sinon": "^18.0.0",
     "supertest": "^7.0.0"
   }
 }

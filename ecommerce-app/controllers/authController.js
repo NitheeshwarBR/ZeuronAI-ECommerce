@@ -15,7 +15,7 @@ function signup(req, res) {
             }
             return res.status(500).json({ error: err.message });
         }
-        res.status(200).json({ id: userId, username });
+        res.status(201).json({ id: userId, username });
     });
 }
 
@@ -26,7 +26,7 @@ function login(req, res) {
             return res.status(500).json({ error: 'Internal Server Error' });
         }
         if (!user) {
-            return res.status(404).json({ error: 'User not found' });
+            return res.status(401).json({ error: 'User not found' });
         }
         bcrypt.compare(password, user.password, (bcryptError, isMatch) => {
             if (bcryptError) {
