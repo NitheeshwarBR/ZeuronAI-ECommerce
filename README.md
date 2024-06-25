@@ -9,6 +9,7 @@ The E-commerce Backend System is designed to support the functionalities of an o
 - Node.js (version 21.7.1 or higher)
 - npm (version 10.5.0 or higher)
 - SQLite (version 3.37.2 or higher)
+
 ## Setup
 To set up the project locally, follow these steps:
 
@@ -36,7 +37,19 @@ npm install
 ```bash
   node index.js
 ```
-
+---
+## Testing
+**Testing is implemented using Jest and Supertest to ensure that all backend functionalities work as expected under various conditions**
+### Running Tests
+- To run all tests, use the following command:
+```bash
+npm test
+```
+- To run specific tests, specify the test file:
+```bash
+npm test -- tests/<test_file>.js
+```
+---
 ## API Endpoints
 
 ### Authentication
